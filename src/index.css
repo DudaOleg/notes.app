@@ -112,9 +112,13 @@
     padding: 13px 5px;
     width: 120px;
 }
-.notes div:nth-child(4), .notes_archive div:nth-child(4){
+.notes div:nth-child(4){
     padding: 13px 5px;
     width: 130px;
+}
+.notes_archive div:nth-child(4){
+    padding: 13px 5px;
+    width: 552px;
 }
 .notes div:nth-child(5){
     padding: 13px 15px;
@@ -127,6 +131,9 @@
 .notes div:nth-child(7)>i, .notes div:nth-child(8)>i , .notes div:nth-child(9)>i{
     margin: 14px 12px;
 }
+.archiveList div:nth-child(5)>i{
+    margin: 14px 12px;
+}
 .notes, .notes_archive{
     display: flex;
     margin-top: 10px;
@@ -137,9 +144,10 @@
     display: flex;
     column-gap: 20px;
 }
-.archive, .edit, .delete{
+.archive, .edit, .delete, .unzip{
     color: #545454;
-    font-size: 20px
+    font-size: 20px;
+    cursor: pointer;
 }
 .archiveAll, .deleteAll{
     font-size: 25px;
