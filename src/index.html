@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div class="table">
+
+        <div class="table_header">
+            <div>Name</div>
+            <div>Created</div>
+            <div>Category</div>
+            <div>Content</div>
+            <div>Dates</div>
+            <div><i class="fas fa-archive archiveAll"></i></div>
+            <div><i class="fas fa-trash deleteAll"></i></div>
+        </div>
+
+        <div class="notesList"></div>
+
+    </div>
+
+    <div class="btn_create">
+        <button>Create note</button>
+    </div>
+
+
+    <div class="table_archive">
+        <div class="archive_header">
+            <div>Note Category</div>
+            <div>Active</div>
+            <div>Archived</div>
+        </div>
+
+        <div class="archiveList"></div>
+
+    </div>
+</div>
+
+<div class="dont_touch none"></div>
+<div class="create_window none">
+    <form class="add">
+        <input type="text" class="input_name" placeholder="name">
+        <input type="text" class="input_content" placeholder="content">
+        <select id="category">
+            <option value="" hidden disabled selected>Category</option>
+            <option>Task</option>
+            <option>Random Thought</option>
+            <option>Idea</option>
+            <option>Quote</option>
+        </select>
+        <input type="date" class="input_date">
+        <button type="submit" class="btn_add">Add</button>
+    </form>
+</div>
+
+<div class="create_window_edit none">
+    <form class="form_edit">
+        <input type="text" class="input_content_edit">
+        <input type="date" class="input_date_edit">
+        <button type="submit" class="btn_add_edit">Add</button>
+    </form>
+</div>
+</body>
+</html>

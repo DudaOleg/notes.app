@@ -1,0 +1,176 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    position: relative;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+.table_header, .archive_header{
+    display: flex;
+    margin-top: 50px;
+    padding: 10px;
+    height: 50px;
+    font-size: 20px;
+    background-color: gray;
+    color: white;
+}
+.archive_header div:nth-child(2){
+    margin-left: 118px;
+    width: 115px;
+}
+.archive_header div:first-child{
+    margin-left: 55px;
+    width: 225px;
+}
+.table_header div:first-child{
+    margin-left: 55px;
+    width: 220px;
+}
+.table_header div:nth-child(2){
+    width: 100px;
+}
+.table_header div:nth-child(3){
+    margin-left: 17px;
+    width: 115px;
+}
+.archive_header div:nth-child(3){
+    margin-left: 10px;
+    width: 300px;
+}
+.table_header div:nth-child(4){
+    margin-left: 20px;
+    width: 300px;
+}
+.table_header div:nth-child(5){
+    width: 230px;
+}
+.table_header div:nth-child(6), .table_header div:nth-child(7){
+    width: 40px;
+}
+.table_header div:nth-child(7){
+    margin-left: 5px;
+}
+.table_header div:nth-child(6)>i , .table_header div:nth-child(7)>i{
+    margin: 0 12px;
+}
+.fa-trash, .fa-archive, .fa-pencil-alt{
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+.fa-shopping-cart, .fa-user-circle, .fa-lightbulb, .fa-quote-right{
+    color: white;
+    font-size: 17px;
+}
+.dont_touch{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+.create_window, .create_window_edit{
+    position: absolute;
+    z-index: 2;
+    padding: 25px;
+    top: 50px;
+    left: 270px;
+    height: 50%;
+    width: 50%;
+    background-color: white;
+    border: 1px solid #646363;
+    border-radius: 4px;
+}
+.notesList{
+    display: flex;
+    flex-direction: column;
+}
+
+.notes div:first-child, .notes_archive div:first-child{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto 7px;
+    width: 40px;
+    height: 37px;
+    border-radius: 20px;
+    background-color: #626262;
+}
+.notes_archive div:nth-child(2){
+    padding: 13px 15px;
+    width: 350px;
+}
+.notes div:nth-child(2){
+    padding: 13px 15px;
+    width: 220px;
+}
+.notes div:nth-child(3), .notes_archive div:nth-child(3){
+    padding: 13px 5px;
+    width: 120px;
+}
+.notes div:nth-child(4), .notes_archive div:nth-child(4){
+    padding: 13px 5px;
+    width: 130px;
+}
+.notes div:nth-child(5){
+    padding: 13px 15px;
+    width: 300px;
+}
+.notes div:nth-child(6){
+    padding: 13px 15px;
+    width: 200px;
+}
+.notes div:nth-child(7)>i, .notes div:nth-child(8)>i , .notes div:nth-child(9)>i{
+    margin: 14px 12px;
+}
+.notes, .notes_archive{
+    display: flex;
+    margin-top: 10px;
+    height: 50px;
+    background-color: #c1d7fc;
+}
+.select_icon{
+    display: flex;
+    column-gap: 20px;
+}
+.archive, .edit, .delete{
+    color: #545454;
+    font-size: 20px
+}
+.archiveAll, .deleteAll{
+    font-size: 25px;
+}
+.btn_create{
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+}
+.btn_create button{
+    border-radius: 4px;
+    padding: 5px;
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+.noContent{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.add, .form_edit{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.add input, .form_edit input, .add select, .form_edit select{
+    width: 500px;
+    height: 30px;
+    margin-bottom: 20px;
+}
+.none{
+    display: none;
+}
