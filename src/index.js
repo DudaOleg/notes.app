@@ -6,7 +6,6 @@ import createArchiveList from './modules/createArchiveList'
 import deleteNotes from './modules/deleteNotes'
 import './index.css'
 
-
 const notes = [
     {
         icon: '<i class="fas fa-shopping-cart"></i>',
@@ -41,6 +40,7 @@ const notes = [
         date: {4: '2022-01-16'}
     },
 ];
+
 const notesArchive = [
     {
         icon: '<i class="fas fa-shopping-cart"></i>',
@@ -76,9 +76,8 @@ const notesArchive = [
     },
 ];
 
-createArchiveList(notes, notesArchive, archiveList);
+createArchiveList(notes, notesArchive, archiveList, notesToggle);
 createNotesList(notes, notesList)
-
 
 btnCreate.addEventListener('click', event => {
     event.preventDefault()
@@ -89,7 +88,7 @@ btnCreate.addEventListener('click', event => {
 archiveAll.addEventListener('click', () => {
     notes.splice(0,).forEach(value => notesArchive.push(value));
     createNotesList(notes, notesList);
-    createArchiveList(notes, notesArchive, archiveList, totalCategory);
+    createArchiveList(notes, notesArchive, archiveList, notesToggle);
 });
 
 deleteAll.addEventListener('click', () => {
@@ -99,6 +98,7 @@ deleteAll.addEventListener('click', () => {
 
 addForm.addEventListener('submit', event => {
     event.preventDefault();
+
     let newName = nameInput.value;
     const options = {month: 'long', day: 'numeric'};
     const newDateCreate = ` ${new Date().toLocaleString('eng', options)},${new Date().getFullYear()}`;
@@ -134,7 +134,7 @@ addForm.addEventListener('submit', event => {
             icon: newIcon
         })
         createNotesList(notes, notesList);
-        createArchiveList(notes, notesArchive, archiveList);
+        createArchiveList(notes, notesArchive, archiveList, notesToggle);
         createWindow.classList.add('none');
         dontTouch.classList.add('none')
         event.target.reset();
@@ -170,18 +170,19 @@ function createNotesList(arr, parent) {
     })
 
     editNotes();
-    archiveNotes();
-    deleteNotes(notes, notesList, createNotesList, createArchiveList, notesArchive, archiveList);
+    notesToggle('archive');
+    deleteNotes(notes, notesList, createNotesList, createArchiveList, notesArchive, archiveList, notesToggle);
 
 }
 
-function archiveNotes() {
-    document.querySelectorAll('.archive').forEach((btn, i) => {
+function notesToggle(querySelector) {
+    document.querySelectorAll(`.${querySelector}`).forEach((btn, i) => {
         btn.addEventListener('click', () => {
             btn.parentElement.remove();
-            notes.splice(i, 1).forEach(value => notesArchive.push(value));
+            if (querySelector === 'archive') notes.splice(i, 1).forEach(value => notesArchive.push(value));
+            if (querySelector === 'unzip') notesArchive.splice(i, 1).forEach(value => notes.push(value));
             createNotesList(notes, notesList);
-            createArchiveList(notes, notesArchive, archiveList);
+            createArchiveList(notes, notesArchive, archiveList, notesToggle);
         })
     });
 }
@@ -200,6 +201,8 @@ function forEditNotes(i) {
     editForm.addEventListener('submit', event => {
         event.preventDefault();
         dateInput.setAttribute('disabled', 'true');
+        const options = {month: 'long', day: 'numeric'};
+        const newDateCreate = ` ${new Date().toLocaleString('eng', options)},${new Date().getFullYear()}`;
         let newContent = editInputContent.value;
         if (newContent === '') newContent = notes[i].content;
         if (newContent.length > 33) newContent = `${newContent.substring(0, 34)}...`;
@@ -207,7 +210,9 @@ function forEditNotes(i) {
             dateInput.removeAttribute('disabled');
             notes[i].date[editInputDate.value] = editInputDate.value;
         }
+
         notes[i].content = newContent;
+        notes[i].dateCreate = newDateCreate
         createNotesList(notes, notesList);
         createWindowEdit.classList.add('none');
         dontTouch.classList.add('none');

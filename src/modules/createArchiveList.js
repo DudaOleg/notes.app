@@ -1,4 +1,4 @@
-export default function createArchiveList(arrNotes, arrNotesArchive, parent) {
+export default function createArchiveList(arrNotes, arrNotesArchive, parent, funcToggle) {
     parent.innerHTML = '';
 
     if (arrNotesArchive.length <= 0) {
@@ -8,7 +8,7 @@ export default function createArchiveList(arrNotes, arrNotesArchive, parent) {
                  </div>
         `;
     }
-console.log(arrNotesArchive)
+
     arrNotesArchive.forEach(note => {
         const {icon, name} = note;
         parent.innerHTML += `
@@ -17,8 +17,10 @@ console.log(arrNotesArchive)
                     <div>${name}</div>
                     <div>${arrNotes.length}</div>
                     <div>${arrNotesArchive.length}</div>
+                    <div><i class="fas fa-clipboard unzip"></i></div>
                  </div>
         `;
     })
 
+    funcToggle('unzip');
 }
