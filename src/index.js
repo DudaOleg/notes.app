@@ -1,6 +1,6 @@
 import {
     addForm, archiveList, archiveAll, categoryList, contentInput, dateInput, nameInput, createWindow, createWindowEdit,
-    deleteAll, dontTouch, editForm, editInputContent, editInputDate, notesList, btnCreate
+    deleteAll, dontTouch, editForm, editInputContent, notesList, btnCreate
 } from './modules/variables'
 import createArchiveList from './modules/createArchiveList'
 import deleteNotes from './modules/deleteNotes'
@@ -13,7 +13,7 @@ const notes = [
         dateCreate: ' January 15,2022',
         category: 'Task',
         content: 'first note content',
-        date: {1: '2022-01-16'}
+        dates: []
     },
     {
         icon: '<i class="fas fa-user-circle"></i>',
@@ -21,7 +21,7 @@ const notes = [
         dateCreate: ' January 15,2022',
         category: 'Random Thought',
         content: 'second note content',
-        date: {2: '2022-01-16'}
+        dates: []
     },
     {
         icon: '<i class="far fa-lightbulb"></i>',
@@ -29,7 +29,7 @@ const notes = [
         dateCreate: ' January 15,2022',
         category: 'Idea',
         content: 'thirty note content',
-        date: {3: '2022-01-16'}
+        dates: []
     },
     {
         icon: '<i class="fas fa-quote-right"></i>',
@@ -37,7 +37,7 @@ const notes = [
         dateCreate: ' January 15,2022',
         category: 'Quote',
         content: 'fourth note content',
-        date: {4: '2022-01-16'}
+        dates: []
     },
 ];
 
@@ -48,7 +48,7 @@ const notesArchive = [
         dateCreate: ' January 15,2022',
         category: 'Task',
         content: 'first note content',
-        date: {1: '2022-01-16'}
+        dates: []
     },
     {
         icon: '<i class="fas fa-user-circle"></i>',
@@ -56,7 +56,7 @@ const notesArchive = [
         dateCreate: ' January 15,2022',
         category: 'Random Thought',
         content: 'second note content',
-        date: {2: '2022-01-16'}
+        dates: []
     },
     {
         icon: '<i class="far fa-lightbulb"></i>',
@@ -64,7 +64,7 @@ const notesArchive = [
         dateCreate: ' January 15,2022',
         category: 'Idea',
         content: 'thirty note content',
-        date: {3: '2022-01-16'}
+        dates: []
     },
     {
         icon: '<i class="fas fa-quote-right"></i>',
@@ -72,7 +72,7 @@ const notesArchive = [
         dateCreate: ' January 15,2022',
         category: 'Quote',
         content: 'fourth note content',
-        date: {4: '2022-01-16'}
+        dates: []
     },
 ];
 
@@ -102,35 +102,38 @@ addForm.addEventListener('submit', event => {
     let newName = nameInput.value;
     const options = {month: 'long', day: 'numeric'};
     const newDateCreate = ` ${new Date().toLocaleString('eng', options)},${new Date().getFullYear()}`;
-    let newContent = contentInput.value;
-    let newIcon = ''
+    let contentValue = contentInput.value;
 
-    if (newName.length > 20) newName = `${newName.substring(0, 21)}...`
+    if (newName && contentValue) {
 
-    if (newContent.length > 33) newContent = `${newContent.substring(0, 34)}...`
+        let newIcon = ''
+        const obj = normalizeDateAndContent(contentValue)
+        let {date, newContent} = obj;
+        if (newName.length > 20) newName = `${newName.substring(0, 21)}...`
 
-    switch (categoryList.value) {
-        case 'Task':
-            newIcon = `<i class="fas fa-shopping-cart"></i>`
-            break;
-        case 'Random Thought':
-            newIcon = `<i class="fas fa-user-circle"></i>`
-            break;
-        case 'Idea':
-            newIcon = `<i class="far fa-lightbulb"></i>`
-            break;
-        case 'Quote':
-            newIcon = `<i class="fas fa-quote-right"></i>`
-            break;
-    }
+        if (newContent.length > 33) newContent = `${newContent.substring(0, 34)}...`
 
-    if (newName && newContent) {
+        switch (categoryList.value) {
+            case 'Task':
+                newIcon = `<i class="fas fa-shopping-cart"></i>`
+                break;
+            case 'Random Thought':
+                newIcon = `<i class="fas fa-user-circle"></i>`
+                break;
+            case 'Idea':
+                newIcon = `<i class="far fa-lightbulb"></i>`
+                break;
+            case 'Quote':
+                newIcon = `<i class="fas fa-quote-right"></i>`
+                break;
+        }
+
         notes.push({
             name: newName,
             dateCreate: newDateCreate,
             category: categoryList.value,
             content: newContent,
-            date: {[dateInput.value]: dateInput.value},
+            dates: date,
             icon: newIcon
         })
         createNotesList(notes, notesList);
@@ -153,7 +156,8 @@ function createNotesList(arr, parent) {
     }
 
     arr.forEach(note => {
-        const {icon, name, dateCreate, category, content, date} = note;
+        const {icon, name, dateCreate, category, content, dates} = note;
+
         parent.innerHTML += `
                  <div class="notes">
                     <div>${icon}</div>
@@ -161,7 +165,7 @@ function createNotesList(arr, parent) {
                     <div>${dateCreate}</div>
                     <div>${category}</div>
                     <div>${content}</div>
-                    <div>${Object.values(date).join('  ')}</div>
+                    <div>${dates}</div>
                     <div><i class="fas fa-pencil-alt edit"></i></div>
                     <div><i class="fas fa-archive archive"></i></div>
                     <div><i class="fas fa-trash delete"></i></div>
@@ -200,22 +204,45 @@ function editNotes() {
 function forEditNotes(i) {
     editForm.addEventListener('submit', event => {
         event.preventDefault();
-        dateInput.setAttribute('disabled', 'true');
-        const options = {month: 'long', day: 'numeric'};
-        const newDateCreate = ` ${new Date().toLocaleString('eng', options)},${new Date().getFullYear()}`;
-        let newContent = editInputContent.value;
-        if (newContent === '') newContent = notes[i].content;
-        if (newContent.length > 33) newContent = `${newContent.substring(0, 34)}...`;
-        if (Object.values(notes[i].date).length < 2) {
-            dateInput.removeAttribute('disabled');
-            notes[i].date[editInputDate.value] = editInputDate.value;
+        let contentValue = editInputContent.value;
+
+        if (contentValue) {
+            const obj = normalizeDateAndContent(contentValue)
+            let {date, newContent} = obj;
+
+            if (newContent.length > 33) newContent = `${newContent.substring(0, 34)}...`;
+
+            notes[i].content = newContent;
+
+            if (date.length > 0) {
+                console.log(notes[i])
+                console.log(notes[i].dates)
+                notes[i].dates.push(date)
+            }
+
         }
 
-        notes[i].content = newContent;
-        notes[i].dateCreate = newDateCreate
         createNotesList(notes, notesList);
         createWindowEdit.classList.add('none');
         dontTouch.classList.add('none');
         event.target.reset();
+
     })
+}
+
+function normalizeDateAndContent(content) {
+    let date = content.split(' ').filter(value =>
+        value?.includes('/') && value.length <= 10 && value.length >= 8);
+    if (date.length <= 0 ){
+        let newContent = content;
+        return {
+            date, newContent
+        }
+    }
+    const slice = content.slice(0, content.indexOf([...date][0]))
+    let newContent = slice + content.slice(content.indexOf([...date][0]) + date[0].length);
+
+    return {
+        date, newContent
+    }
 }
