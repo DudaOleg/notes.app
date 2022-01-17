@@ -1,4 +1,4 @@
-export default function createArchiveList(arrNotes, arrNotesArchive, parent, func) {
+export default function createArchiveList(arrNotes, arrNotesArchive, parent) {
     parent.innerHTML = '';
 
     if (arrNotesArchive.length <= 0) {
@@ -8,15 +8,15 @@ export default function createArchiveList(arrNotes, arrNotesArchive, parent, fun
                  </div>
         `;
     }
-
+console.log(arrNotesArchive)
     arrNotesArchive.forEach(note => {
-        const {icon, name, category} = note;
+        const {icon, name} = note;
         parent.innerHTML += `
                  <div class="notes_archive">
                     <div>${icon}</div>
                     <div>${name}</div>
-                    <div>${func(arrNotes)[category.toString().toLowerCase()]}</div>
-                    <div>${func(arrNotesArchive)[category.toString().toLowerCase()]}</div>
+                    <div>${arrNotes.length}</div>
+                    <div>${arrNotesArchive.length}</div>
                  </div>
         `;
     })

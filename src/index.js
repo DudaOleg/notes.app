@@ -2,7 +2,6 @@ import {
     addForm, archiveList, archiveAll, categoryList, contentInput, dateInput, nameInput, createWindow, createWindowEdit,
     deleteAll, dontTouch, editForm, editInputContent, editInputDate, notesList, btnCreate
 } from './modules/variables'
-import totalCategory from './modules/totalCategory'
 import createArchiveList from './modules/createArchiveList'
 import deleteNotes from './modules/deleteNotes'
 import './index.css'
@@ -11,40 +10,73 @@ import './index.css'
 const notes = [
     {
         icon: '<i class="fas fa-shopping-cart"></i>',
-        name: 'qwe',
+        name: 'first note',
         dateCreate: ' January 15,2022',
         category: 'Task',
-        content: 'qwe',
+        content: 'first note content',
         date: {1: '2022-01-16'}
     },
     {
         icon: '<i class="fas fa-user-circle"></i>',
-        name: 'qwe',
+        name: 'second note',
         dateCreate: ' January 15,2022',
         category: 'Random Thought',
-        content: 'qwe',
+        content: 'second note content',
         date: {2: '2022-01-16'}
     },
     {
         icon: '<i class="far fa-lightbulb"></i>',
-        name: 'qwe',
+        name: 'third note',
         dateCreate: ' January 15,2022',
         category: 'Idea',
-        content: 'qwe',
+        content: 'thirty note content',
         date: {3: '2022-01-16'}
     },
     {
         icon: '<i class="fas fa-quote-right"></i>',
-        name: 'asd',
+        name: 'fourth note',
         dateCreate: ' January 15,2022',
         category: 'Quote',
-        content: 'asd',
+        content: 'fourth note content',
         date: {4: '2022-01-16'}
     },
 ];
-const notesArchive = [];
+const notesArchive = [
+    {
+        icon: '<i class="fas fa-shopping-cart"></i>',
+        name: 'first note',
+        dateCreate: ' January 15,2022',
+        category: 'Task',
+        content: 'first note content',
+        date: {1: '2022-01-16'}
+    },
+    {
+        icon: '<i class="fas fa-user-circle"></i>',
+        name: 'second note',
+        dateCreate: ' January 15,2022',
+        category: 'Random Thought',
+        content: 'second note content',
+        date: {2: '2022-01-16'}
+    },
+    {
+        icon: '<i class="far fa-lightbulb"></i>',
+        name: 'third note',
+        dateCreate: ' January 15,2022',
+        category: 'Idea',
+        content: 'thirty note content',
+        date: {3: '2022-01-16'}
+    },
+    {
+        icon: '<i class="fas fa-quote-right"></i>',
+        name: 'fourth note',
+        dateCreate: ' January 15,2022',
+        category: 'Quote',
+        content: 'fourth note content',
+        date: {4: '2022-01-16'}
+    },
+];
 
-createArchiveList(notes, notesArchive, archiveList, totalCategory);
+createArchiveList(notes, notesArchive, archiveList);
 createNotesList(notes, notesList)
 
 
@@ -102,7 +134,7 @@ addForm.addEventListener('submit', event => {
             icon: newIcon
         })
         createNotesList(notes, notesList);
-        createArchiveList(notes, notesArchive, archiveList, totalCategory);
+        createArchiveList(notes, notesArchive, archiveList);
         createWindow.classList.add('none');
         dontTouch.classList.add('none')
         event.target.reset();
@@ -139,7 +171,7 @@ function createNotesList(arr, parent) {
 
     editNotes();
     archiveNotes();
-    deleteNotes(notes, notesList, createNotesList);
+    deleteNotes(notes, notesList, createNotesList, createArchiveList, notesArchive, archiveList);
 
 }
 
@@ -149,7 +181,7 @@ function archiveNotes() {
             btn.parentElement.remove();
             notes.splice(i, 1).forEach(value => notesArchive.push(value));
             createNotesList(notes, notesList);
-            createArchiveList(notes, notesArchive, archiveList, totalCategory);
+            createArchiveList(notes, notesArchive, archiveList);
         })
     });
 }

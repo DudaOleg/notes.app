@@ -1,5 +1,5 @@
 {
-  "name": "Radency",
+  "name": "notes.app",
   "version": "1.0.0",
   "description": "taskForRadency",
   "main": "./src/index.js",
