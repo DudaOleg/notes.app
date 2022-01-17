@@ -1,6 +1,6 @@
 import {
     addForm, archiveList, archiveAll, categoryList, contentInput, dateInput, nameInput, createWindow, createWindowEdit,
-    deleteAll, dontTouch, editForm, editInputContent, editInputDate, notesList, btnCreate
+    deleteAll, dontTouch, editForm, editInputContent, notesList, btnCreate
 } from './modules/variables'
 import createArchiveList from './modules/createArchiveList'
 import deleteNotes from './modules/deleteNotes'
@@ -204,9 +204,7 @@ function editNotes() {
 function forEditNotes(i) {
     editForm.addEventListener('submit', event => {
         event.preventDefault();
-        dateInput.setAttribute('disabled', 'true');
         let contentValue = editInputContent.value;
-
 
         if (contentValue) {
             const obj = normalizeDateAndContent(contentValue)
@@ -217,6 +215,8 @@ function forEditNotes(i) {
             notes[i].content = newContent;
 
             if (date.length > 0) {
+                console.log(notes[i])
+                console.log(notes[i].dates)
                 notes[i].dates.push(date)
             }
 
@@ -234,8 +234,7 @@ function normalizeDateAndContent(content) {
     let date = content.split(' ').filter(value =>
         value?.includes('/') && value.length <= 10 && value.length >= 8);
     if (date.length <= 0 ){
-        let newContent = content
-        date = ''
+        let newContent = content;
         return {
             date, newContent
         }

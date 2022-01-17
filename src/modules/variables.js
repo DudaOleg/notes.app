@@ -9,7 +9,6 @@ const archiveAll = document.querySelector('.archiveAll');
 
 const editForm = document.querySelector('form.form_edit');
 const editInputContent = document.querySelector('.input_content_edit');
-const editInputDate = editForm.querySelector('.input_date_edit');
 
 const addForm = document.querySelector('form.add');
 const nameInput = addForm.querySelector('.input_name');
@@ -22,5 +21,5 @@ const archiveList = document.querySelector('.archiveList');
 
 export {
     addForm, archiveList, archiveAll, categoryList, contentInput, dateInput, nameInput, createWindow, createWindowEdit,
-    deleteAll, dontTouch, editForm, editInputContent, editInputDate, notesList, btnCreate
+    deleteAll, dontTouch, editForm, editInputContent, notesList, btnCreate
 }
